@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ascent Performance Group — Lead Magnet Concepts</title>
+<style>
+  :root{
+    --apg-blue:#0F66B4;
+    --apg-blue-dark:#0A4E8A;
+    --apg-blue-darker:#073a68;
+    --apg-green:#1FA23E;
+    --apg-green-dark:#178331;
+    --ink:#1c2530;
+    --muted:#5c6b7a;
+    --line:#e4e9ef;
+    --bg:#f4f7fb;
+    --card:#ffffff;
+    --shadow:0 10px 30px rgba(15,102,180,.08);
+    --shadow-lg:0 24px 60px rgba(7,58,104,.16);
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  h1,h2,h3,h4{line-height:1.15;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Demo top bar / switcher ---------- */
+  .demobar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .demobar-inner{
+    display:flex;align-items:center;gap:20px;
+    padding:12px 24px;max-width:1180px;margin:0 auto;flex-wrap:wrap;
+  }
+  .demobar .brand{display:flex;align-items:center;gap:12px;min-width:200px}
+  .demobar .brand img{height:34px;width:auto}
+  .demobar .tag{
+    font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);border-left:1px solid var(--line);padding-left:12px;
+  }
+  .switcher{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+  .switcher button{
+    font:inherit;font-size:13px;font-weight:600;cursor:pointer;
+    border:1px solid var(--line);background:#fff;color:var(--muted);
+    padding:9px 16px;border-radius:999px;transition:.18s;white-space:nowrap;
+    display:flex;align-items:center;gap:8px;
+  }
+  .switcher button .num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:20px;height:20px;border-radius:50%;background:var(--bg);
+    font-size:11px;font-weight:800;color:var(--muted);transition:.18s;
+  }
+  .switcher button:hover{border-color:var(--apg-blue);color:var(--apg-blue)}
+  .switcher button.active{
+    background:var(--apg-blue);border-color:var(--apg-blue);color:#fff;
+    box-shadow:0 6px 16px rgba(15,102,180,.3);
+  }
+  .switcher button.active .num{background:rgba(255,255,255,.25);color:#fff}
+
+  /* ---------- generic ---------- */
+  .panel{display:none;animation:fade .4s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    background:rgba(31,162,62,.12);color:var(--apg-green-dark);
+    padding:6px 14px;border-radius:999px;margin-bottom:22px;
+  }
+  .badge.blue{background:rgba(15,102,180,.1);color:var(--apg-blue-dark)}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    font:inherit;font-weight:700;font-size:16px;cursor:pointer;
+    background:var(--apg-green);color:#fff;border:none;
+    padding:16px 30px;border-radius:12px;transition:.18s;text-decoration:none;
+    box-shadow:0 10px 24px rgba(31,162,62,.28);
+  }
+  .btn:hover{background:var(--apg-green-dark);transform:translateY(-2px);box-shadow:0 14px 30px rgba(31,162,62,.34)}
+  .btn.blue{background:var(--apg-blue);box-shadow:0 10px 24px rgba(15,102,180,.28)}
+  .btn.blue:hover{background:var(--apg-blue-dark);box-shadow:0 14px 30px rgba(15,102,180,.34)}
+  .btn.ghost{background:#fff;color:var(--apg-blue);border:1.5px solid var(--apg-blue);box-shadow:none}
+  .btn.ghost:hover{background:rgba(15,102,180,.06)}
+  .btn.lg{font-size:17px;padding:18px 36px}
+
+  .hero-grad{
+    background:
+      radial-gradient(1200px 500px at 85% -10%, rgba(31,162,62,.16), transparent 60%),
+      linear-gradient(135deg,#0A4E8A 0%, #0F66B4 55%, #1577c9 100%);
+    color:#fff;
+  }
+
+  .field label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:7px}
+  .field{margin-bottom:18px}
+  input,select{
+    width:100%;font:inherit;font-size:15px;color:var(--ink);
+    padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;background:#ffff;transition:.15s;
+  }
+  input:focus,select:focus{outline:none;border-color:var(--apg-blue);box-shadow:0 0 0 4px rgba(15,102,180,.12)}
+
+  .footer-note{
+    text-align:center;color:var(--muted);font-size:13px;
+    padding:40px 24px 60px;
+  }
+
+  /* =====================================================
+     OPTION 1 — ROI ASSESSMENT
+  ===================================================== */
+  #opt1 .hero{padding:64px 0 80px}
+  #opt1 .hero h1{font-size:clamp(30px,4.4vw,50px);max-width:760px;margin-bottom:18px}
+  #opt1 .hero p.sub{font-size:18px;max-width:560px;opacity:.92;margin-bottom:34px}
+  .deliverables{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;
+    max-width:820px;margin-top:38px;
+  }
+  .deliverables .d{
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+    border-radius:12px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;
+  }
+  .deliverables .d .ic{font-size:20px;line-height:1}
+  .deliverables .d b{display:block;font-size:14px;margin-bottom:2px}
+  .deliverables .d span{font-size:12.5px;opacity:.82}
+
+  .assess-shell{max-width:760px;margin:-56px auto 0;position:relative;z-index:2;padding:0 24px 60px}
+  .assess-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow-lg);overflow:hidden}
+  .assess-head{padding:26px 32px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .assess-head h3{font-size:18px}
+  .assess-head .step-label{font-size:13px;color:var(--muted);font-weight:600}
+  .progress{height:6px;background:var(--bg);border-radius:999px;overflow:hidden}
+  .progress > i{display:block;height:100%;width:10%;background:linear-gradient(90deg,var(--apg-blue),var(--apg-green));transition:width .4s}
+  .assess-body{padding:30px 32px 8px}
+  .qrow{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .qrow .field.full{grid-column:1 / -1}
+  .assess-foot{padding:18px 32px 30px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .stepscreen{display:none}
+  .stepscreen.active{display:block}
+
+  /* report */
+  .report{max-width:820px;margin:30px auto 0;padding:0 24px 70px}
+  .report-doc{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-lg);overflow:hidden;border:1px solid var(--line)}
+  .report-top{background:var(--apg-blue-dark);color:#fff;padding:30px 36px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .report-top img{height:34px;background:#fff;padding:7px 12px;border-radius:8px}
+  .report-top .meta{font-size:12px;opacity:.8;text-align:right}
+  .score-hero{padding:40px 36px;display:flex;gap:40px;align-items:center;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .gauge{position:relative;width:180px;height:180px;flex-shrink:0}
+  .gauge svg{transform:rotate(-90deg)}
+  .gauge .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .gauge .val b{font-size:46px;font-weight:800;color:var(--apg-blue-dark);line-height:1}
+  .gauge .val span{font-size:13px;color:var(--muted);font-weight:600}
+  .score-hero .lede h2{font-size:24px;margin-bottom:8px}
+  .score-hero .lede p{color:var(--muted);max-width:380px}
+  .breakdown{padding:32px 36px}
+  .breakdown h4{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:18px}
+  .bar-row{margin-bottom:18px}
+  .bar-row .top{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+  .bar-row .top b{font-weight:600}
+  .bar-row .top .rate{font-weight:700}
+  .track{height:10px;background:var(--bg);border-radius:999px;overflow:hidden}
+  .track > i{display:block;height:100%;border-radius:999px}
+  .rate.weak{color:#c0392b} .fill-weak{background:#e74c3c}
+  .rate.below{color:#d68910} .fill-below{background:#f39c12}
+  .rate.avg{color:#2471a3} .fill-avg{background:#3498db}
+  .rate.strong{color:var(--apg-green-dark)} .fill-strong{background:var(--apg-green)}
+  .upside{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 36px 32px}
+  .upside .u{background:linear-gradient(135deg,rgba(31,162,62,.08),rgba(15,102,180,.06));border:1px solid var(--line);border-radius:14px;padding:22px}
+  .upside .u .big{font-size:30px;font-weight:800;color:var(--apg-green-dark)}
+  .upside .u .lbl{font-size:13px;color:var(--muted);margin-top:2px}
+  .report-cta{background:var(--apg-blue-dark);color:#fff;padding:34px 36px;text-align:center}
+  .report-cta h3{font-size:22px;margin-bottom:8px}
+  .report-cta p{opacity:.85;margin-bottom:22px}
+
+  /* =====================================================
+     OPTION 2 — BENCHMARK REPORT
+  ===================================================== */
+  #opt2 .b-hero{padding:70px 0 90px;position:relative;overflow:hidden}
+  #opt2 .b-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  #opt2 .b-hero h1{font-size:clamp(30px,4vw,46px);margin-bottom:18px;max-width:540px}
+  #opt2 .b-hero .yr{color:var(--apg-green);font-weight:800}
+  #opt2 .b-hero p.sub{font-size:18px;opacity:.92;max-width:470px;margin-bottom:28px}
+  .b-list{list-style:none;margin:26px 0 0;display:grid;gap:11px;max-width:480px}
+  .b-list li{display:flex;gap:11px;align-items:center;font-size:15px}
+  .b-list li .ck{width:22px;height:22px;border-radius:50%;background:rgba(31,162,62,.9);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+  /* gated form */
+  .gate{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:30px 30px 34px;color:var(--ink)}
+  .gate .cover{
+    border-radius:12px;height:150px;margin-bottom:22px;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,var(--apg-blue-dark),var(--apg-blue));
+    display:flex;align-items:flex-end;padding:18px;color:#fff;
+  }
+  .gate .cover:before{content:"";position:absolute;right:-30px;top:-40px;width:160px;height:160px;background:rgba(31,162,62,.45);border-radius:24px;transform:rotate(25deg)}
+  .gate .cover .ct{position:relative;z-index:1}
+  .gate .cover .ct small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+  .gate .cover .ct b{display:block;font-size:18px;line-height:1.2;margin-top:4px}
+  .gate h3{font-size:18px;margin-bottom:4px}
+  .gate p.note{font-size:13px;color:var(--muted);margin-bottom:20px}
+  .gate .priv{font-size:11.5px;color:var(--muted);text-align:center;margin-top:14px}
+
+  /* preview stats */
+  .b-stats{background:#fff;padding:70px 0}
+  .b-stats .head{text-align:center;max-width:620px;margin:0 auto 46px}
+  .b-stats .head h2{font-size:30px;margin-bottom:10px}
+  .b-stats .head p{color:var(--muted)}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+  .stat{border:1px solid var(--line);border-radius:14px;padding:26px 24px;background:linear-gradient(180deg,#fff,#fbfdff);position:relative;overflow:hidden}
+  .stat:before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:linear-gradient(90deg,var(--apg-blue),var(--apg-green))}
+  .stat .num{font-size:34px;font-weight:800;color:var(--apg-blue-dark);letter-spacing:-.02em}
+  .stat .lbl{font-size:14px;color:var(--muted);margin-top:4px;line-height:1.4}
+  .stat .blur{filter:blur(7px);user-select:none}
+  .locked{position:relative}
+  .locked .lockpill{
+    position:absolute;top:18px;right:18px;font-size:11px;font-weight:700;
+    background:var(--ink);color:#fff;padding:5px 11px;border-radius:999px;display:flex;gap:6px;align-items:center;
+  }
+  .b-toc{background:var(--bg);padding:64px 0}
+  .b-toc h2{text-align:center;font-size:28px;margin-bottom:36px}
+  .toc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .toc-item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;gap:14px;align-items:flex-start}
+  .toc-item .n{font-size:14px;font-weight:800;color:#fff;background:var(--apg-blue);min-width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+  .toc-item b{display:block;font-size:15px;margin-bottom:3px}
+  .toc-item span{font-size:13px;color:var(--muted)}
+
+  /* =====================================================
+     OPTION 3 — TRIP CALCULATOR
+  ===================================================== */
+  #opt3 .c-hero{padding:56px 0 26px;text-align:center}
+  #opt3 .c-hero h1{font-size:clamp(28px,3.8vw,44px);max-width:680px;margin:0 auto 14px}
+  #opt3 .c-hero p{font-size:18px;color:var(--muted);max-width:540px;margin:0 auto}
+  .calc-wrap{max-width:1000px;margin:36px auto 0;padding:0 24px 70px}
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+  .calc-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);padding:30px}
+  .calc-card h3{font-size:18px;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+  .calc-card h3 .dot{width:9px;height:9px;border-radius:50%;background:var(--apg-green)}
+  .slider-row{margin-bottom:24px}
+  .slider-row .lab{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .slider-row .lab b{font-size:14px}
+  .slider-row .lab .v{font-size:18px;font-weight:800;color:var(--apg-blue)}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:999px;background:var(--line);padding:0;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--apg-blue);border:3px solid #fff;box-shadow:0 2px 8px rgba(15,102,180,.4);cursor:pointer}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--apg-blue);border:3px solid #fff;cursor:pointer}
+  .seg{display:flex;gap:8px;flex-wrap:wrap}
+  .seg button{flex:1;min-width:max-content;font:inherit;font-size:13.5px;font-weight:600;padding:11px 10px;border:1.5px solid var(--line);background:#fff;color:var(--muted);border-radius:10px;cursor:pointer;transition:.15s}
+  .seg button:hover{border-color:var(--apg-blue)}
+  .seg button.on{background:var(--apg-blue);border-color:var(--apg-blue);color:#fff}
+  .seg.green button.on{background:var(--apg-green);border-color:var(--apg-green)}
+
+  .result-card{background:linear-gradient(160deg,#0A4E8A,#0F66B4);color:#fff;border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:32px;position:sticky;top:90px}
+  .result-card .estlabel{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+  .result-card .est{font-size:clamp(34px,5vw,46px);font-weight:800;letter-spacing:-.02em;margin:6px 0 4px}
+  .result-card .per{font-size:14px;opacity:.8;margin-bottom:24px}
+  .result-card .summary{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:18px 20px;margin-bottom:22px}
+  .result-card .summary .sr{display:flex;justify-content:space-between;font-size:14px;padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.18)}
+  .result-card .summary .sr:last-child{border-bottom:none}
+  .result-card .summary .sr span{opacity:.82}
+  .result-card .summary .sr b{font-weight:700}
+  .incl{margin:0 0 24px;padding:0;list-style:none}
+  .incl li{display:flex;gap:10px;align-items:center;font-size:13.5px;padding:6px 0;opacity:.92}
+  .incl li .ck{color:var(--apg-green);background:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+  .lead-form{display:flex;gap:10px;flex-wrap:wrap}
+  .lead-form input{flex:1;min-width:180px;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:#fff}
+  .lead-form input::placeholder{color:rgba(255,255,255,.7)}
+  .disc{font-size:11px;opacity:.6;margin-top:14px;text-align:center}
+  .locked-est{position:relative;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:24px;margin-bottom:18px;text-align:center}
+  .locked-est .lockpill{position:absolute;top:14px;right:14px;font-size:11px;font-weight:700;background:rgba(0,0,0,.25);color:#fff;padding:5px 11px;border-radius:999px}
+  .est.blurred{filter:blur(9px);user-select:none;opacity:.85}
+  .next-step{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:20px;margin:4px 0 0;text-align:center}
+  .next-step b{display:block;font-size:16px;margin-bottom:6px}
+  .next-step p{font-size:13px;opacity:.85;margin-bottom:16px}
+  #revealForm input,#revealForm select{width:100%;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:#fff}
+  #revealForm input::placeholder{color:rgba(255,255,255,.7)}
+  #revealForm option{color:#1c2530}
+
+  /* admin / assumptions panel */
+  .admin{margin-top:20px;border:1px dashed var(--line);border-radius:14px;background:#fbfdff;overflow:hidden}
+  #admin,#adminROI{background:#fff8db;border-color:#e6cf5a}
+  #admin .admin-toggle,#adminROI .admin-toggle{color:#8a6d10}
+  .admin-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;font:inherit;font-size:13px;font-weight:700;color:var(--muted);background:none;border:none;cursor:pointer;padding:14px 18px}
+  .admin-toggle .lbl{display:flex;align-items:center;gap:8px}
+  .admin-toggle .chev{transition:.2s}
+  .admin.open .admin-toggle .chev{transform:rotate(180deg)}
+  .admin-body{display:none;padding:4px 18px 18px;border-top:1px dashed var(--line)}
+  .admin.open .admin-body{display:block}
+  .admin-note{font-size:11.5px;color:var(--muted);margin:12px 0 16px}
+  .admin h4{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--apg-blue-dark);margin:16px 0 10px}
+  .admin h4:first-of-type{margin-top:4px}
+  .adgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .adfield label{display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:5px}
+  .adfield .inp{position:relative;display:flex;align-items:center}
+  .adfield .inp .pre,.adfield .inp .post{position:absolute;font-size:12px;color:var(--muted);font-weight:600}
+  .adfield .inp .pre{left:11px} .adfield .inp .post{right:11px}
+  .adfield input{font-size:13px;padding:9px 11px}
+  .adfield input.haspre{padding-left:22px} .adfield input.haspost{padding-right:28px}
+  .admin-actions{display:flex;gap:10px;margin-top:18px}
+  .admin-actions button{font:inherit;font-size:12.5px;font-weight:700;padding:9px 14px;border-radius:9px;cursor:pointer;border:1.5px solid var(--line);background:#fff;color:var(--muted);transition:.15s}
+  .admin-actions button.primary{background:var(--apg-blue);border-color:var(--apg-blue);color:#fff}
+  .admin-actions button:hover{border-color:var(--apg-blue);color:var(--apg-blue)}
+  .admin-actions button.primary:hover{background:var(--apg-blue-dark);color:#fff}
+
+  /* scoring rubric */
+  .rubric-pillar{border:1px solid #efe2a6;background:#fffdf2;border-radius:10px;padding:12px 14px;margin-bottom:12px}
+  .rubric-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+  .rubric-head .pname{font-size:13px;font-weight:800;color:var(--apg-blue-dark)}
+  .rubric-head .wt{font-size:11px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px}
+  .rubric-head .wt .winp{position:relative;display:inline-flex;align-items:center}
+  .rubric-head .wt input{width:74px;font-size:12px;padding:6px 24px 6px 9px}
+  .rubric-head .wt .winp .post{position:absolute;right:9px;font-size:11px;color:var(--muted);font-weight:700}
+  .rubric-q{margin:9px 0 4px}
+  .rubric-q-label{font-size:11.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
+  .rubric-opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .rubric-opt{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:5px 6px 5px 9px}
+  .rubric-opt .ot{font-size:11px;color:var(--muted);line-height:1.2}
+  .rubric-opt input{width:50px;font-size:12px;padding:5px 4px;text-align:center;flex-shrink:0}
+
+  @media(max-width:820px){
+    #opt2 .b-grid{grid-template-columns:1fr;gap:32px}
+    .calc-grid{grid-template-columns:1fr}
+    .result-card{position:static}
+    .qrow{grid-template-columns:1fr}
+    .upside{grid-template-columns:1fr}
+    .demobar .tag{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== DEMO SWITCHER ===================== -->
+<div class="demobar">
+  <div class="demobar-inner">
+    <div class="brand">
+      <img src="apg_logo.png" alt="Ascent Performance Group" />
+    </div>
+    <span class="tag">Lead Magnet Concepts</span>
+    <div class="switcher" id="switcher">
+      <button class="active" data-target="opt1"><span class="num">1</span> ROI Assessment</button>
+      <button data-target="opt2"><span class="num">2</span> Benchmark Report</button>
+      <button data-target="opt3"><span class="num">3</span> Trip Cost Calculator</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- OPTION 1 — ROI ASSESSMENT                              -->
+<!-- ===================================================== -->
+<section id="opt1" class="panel active">
+  <div class="hero hero-grad">
+    <div class="wrap hero">
+      <span class="badge"><span>★</span> Free 3-Minute Assessment</span>
+      <h1>How Effective Is Your Current Incentive Program?</h1>
+      <p class="sub">Take our 3-minute assessment and instantly receive a benchmarked scorecard built from how top-performing sales organizations design their incentive and recognition programs.</p>
+      <a href="#assessTool" class="btn lg">Start My Assessment →</a>
+
+      <div class="deliverables">
+        <div class="d"><span class="ic">📊</span><div><b>Program Score (0–100)</b><span>Your overall effectiveness rating</span></div></div>
+        <div class="d"><span class="ic">💰</span><div><b>Estimated ROI Opportunity</b><span>Untapped upside in dollars</span></div></div>
+        <div class="d"><span class="ic">🔁</span><div><b>Retention & Engagement</b><span>Where you're losing momentum</span></div></div>
+        <div class="d"><span class="ic">📄</span><div><b>Executive Benchmark Report</b><span>Compared to similar orgs</span></div></div>
+        <div class="d"><span class="ic">🎯</span><div><b>Personalized Recommendations</b><span>Clear, prioritized next steps</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assessment tool -->
+  <div class="assess-shell" id="assessTool">
+    <div class="assess-card" id="assessCard">
+      <div class="assess-head">
+        <h3>Incentive Program Assessment</h3>
+        <span class="step-label" id="stepLabel">Step 1 of 3</span>
+      </div>
+      <div class="progress"><i id="progBar" style="width:33%"></i></div>
+
+      <!-- STEP 1 -->
+      <div class="stepscreen active" data-step="1">
+        <div class="assess-body">
+          <div class="qrow">
+            <div class="field">
+              <label>Annual Revenue</label>
+              <select id="q_rev">
+                <option>Under $50M</option><option selected>$50M – $250M</option>
+                <option>$250M – $1B</option><option>$1B+</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Industry</label>
+              <select id="q_ind">
+                <option>Manufacturing</option><option selected>Technology / SaaS</option>
+                <option>Financial Services</option><option>Healthcare / Medical</option>
+                <option>Distribution / Wholesale</option><option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Number of Sales Reps</label>
+              <select id="q_reps">
+                <option>Under 25</option><option selected>25 – 100</option>
+                <option>100 – 500</option><option>500+</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Current Annual Incentive Budget</label>
+              <select id="q_budget">
+                <option>Under $100K</option><option selected>$100K – $500K</option>
+                <option>$500K – $2M</option><option>$2M+</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="stepscreen" data-step="2">
+        <div class="assess-body">
+          <div class="qrow">
+            <div class="field full">
+              <label>Primary Reward Type</label>
+              <select id="q_reward">
+                <option>Cash bonuses only</option>
+                <option selected>Mix of cash &amp; travel</option>
+                <option>Incentive travel / President's Club focused</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Do you run a President's Club?</label>
+              <select id="q_pc"><option selected>Yes</option><option>No</option><option>Considering it</option></select>
+            </div>
+            <div class="field">
+              <label>How often do you run incentive trips?</label>
+              <select id="q_freq"><option selected>Annually</option><option>Every 2+ years</option><option>Ad hoc / Never</option></select>
+            </div>
+            <div class="field">
+              <label>Qualifier Participation Rate</label>
+              <select id="q_part"><option>Under 10%</option><option selected>10% – 25%</option><option>25% – 50%</option><option>Over 50%</option></select>
+            </div>
+            <div class="field">
+              <label>Reward Communication Frequency</label>
+              <select id="q_comm"><option selected>Once or twice a year</option><option>Quarterly</option><option>Monthly / Ongoing</option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="stepscreen" data-step="3">
+        <div class="assess-body">
+          <div class="qrow">
+            <div class="field">
+              <label>Top Sales Rep Retention Concern?</label>
+              <select id="q_ret"><option selected>Yes — losing top performers</option><option>Somewhat</option><option>No major concern</option></select>
+            </div>
+            <div class="field">
+              <label>Sales Growth Goal (next 12 mo)</label>
+              <select id="q_growth"><option>Maintain</option><option selected>10% – 25% growth</option><option>25%+ growth</option></select>
+            </div>
+            <div class="field full">
+              <label>Work Email (to receive your report)</label>
+              <input type="email" placeholder="you@company.com" value="vp.sales@company.com" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="assess-foot">
+        <button class="btn ghost" id="backBtn" style="visibility:hidden">← Back</button>
+        <button class="btn" id="nextBtn">Next →</button>
+      </div>
+    </div>
+
+    <!-- ADMIN: adjustable scoring factors -->
+    <div class="admin" id="adminROI">
+      <button class="admin-toggle" id="adminROIToggle" type="button">
+        <span class="lbl">⚙ Admin · Adjust scoring factors</span>
+        <span class="chev">▾</span>
+      </button>
+      <div class="admin-body">
+        <p class="admin-note">Internal controls — this is the scoring engine. Each answer choice below contributes points (0–100) to one of the four pillars. A pillar's score = the average of the points from the answers the person selected; the overall score = the weighted average of the four pillars. Change any number and the report recalculates live.</p>
+
+        <h4>Answer → Points Rubric</h4>
+        <div id="scoringRubric"></div>
+
+        <h4>Rating Thresholds (score cut-offs)</h4>
+        <div class="adgrid">
+          <div class="adfield"><label>Below this = Weak</label><div class="inp"><input type="number" id="thWeak" value="40" min="0" max="100" /></div></div>
+          <div class="adfield"><label>Below this = Below Average</label><div class="inp"><input type="number" id="thBelow" value="55" min="0" max="100" /></div></div>
+          <div class="adfield"><label>Below this = Average</label><div class="inp"><input type="number" id="thAvg" value="75" min="0" max="100" /></div></div>
+          <div class="adfield"><label>At / above = Strong</label><div class="inp"><input type="number" id="thStrong" value="75" min="0" max="100" disabled /></div></div>
+        </div>
+
+        <h4>Upside Ranges</h4>
+        <div class="adgrid">
+          <div class="adfield"><label>Productivity — low</label><div class="inp"><input type="number" id="aProdLo" class="haspost" value="8" min="0" /><span class="post">%</span></div></div>
+          <div class="adfield"><label>Productivity — high</label><div class="inp"><input type="number" id="aProdHi" class="haspost" value="15" min="0" /><span class="post">%</span></div></div>
+          <div class="adfield"><label>Retention — low</label><div class="inp"><input type="number" id="aRetLo" class="haspost" value="5" min="0" /><span class="post">%</span></div></div>
+          <div class="adfield"><label>Retention — high</label><div class="inp"><input type="number" id="aRetHi" class="haspost" value="12" min="0" /><span class="post">%</span></div></div>
+        </div>
+
+        <div class="admin-actions">
+          <button type="button" class="primary" id="adminROIApply">Apply to report</button>
+          <button type="button" id="adminROIReset">Reset defaults</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORT (hidden until completed) -->
+  <div class="report" id="reportArea" style="display:none">
+    <div class="report-doc">
+      <div class="report-top">
+        <img src="apg_logo.png" alt="APG" />
+        <div class="meta">CONFIDENTIAL ASSESSMENT<br/>Prepared exclusively for your organization</div>
+      </div>
+
+      <div class="score-hero">
+        <div class="gauge">
+          <svg width="180" height="180" viewBox="0 0 180 180">
+            <circle cx="90" cy="90" r="78" fill="none" stroke="#eef3f8" stroke-width="16"/>
+            <circle id="gaugeArc" cx="90" cy="90" r="78" fill="none" stroke="url(#g1)" stroke-width="16"
+                    stroke-linecap="round" stroke-dasharray="490" stroke-dashoffset="490"/>
+            <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#0F66B4"/><stop offset="1" stop-color="#1FA23E"/>
+            </linearGradient></defs>
+          </svg>
+          <div class="val"><b id="scoreNum">0</b><span>out of 100</span></div>
+        </div>
+        <div class="lede">
+          <h2>Your Incentive Program Score</h2>
+          <p id="ledeText">Here's how your program compares to similar organizations.</p>
+        </div>
+      </div>
+
+      <div class="breakdown">
+        <h4>Compared to similar organizations</h4>
+        <div class="bar-row">
+          <div class="top"><b>Recognition</b><span class="rate below" id="rate_rec">Below Average</span></div>
+          <div class="track"><i class="fill-below" id="fill_rec" style="width:52%"></i></div>
+        </div>
+        <div class="bar-row">
+          <div class="top"><b>Qualification Structure</b><span class="rate avg" id="rate_qual">Average</span></div>
+          <div class="track"><i class="fill-avg" id="fill_qual" style="width:73%"></i></div>
+        </div>
+        <div class="bar-row">
+          <div class="top"><b>Reward Value</b><span class="rate strong" id="rate_reward">Strong</span></div>
+          <div class="track"><i class="fill-strong" id="fill_reward" style="width:90%"></i></div>
+        </div>
+        <div class="bar-row">
+          <div class="top"><b>Program Communication</b><span class="rate weak" id="rate_comm">Weak</span></div>
+          <div class="track"><i class="fill-weak" id="fill_comm" style="width:33%"></i></div>
+        </div>
+      </div>
+
+      <div class="upside">
+        <div class="u"><div class="big" id="up_prod">8–15%</div><div class="lbl">Potential sales productivity improvement</div></div>
+        <div class="u"><div class="big" id="up_ret">5–12%</div><div class="lbl">Potential retention improvement</div></div>
+      </div>
+
+      <div class="report-cta">
+        <h3>Schedule a Strategic Program Review</h3>
+        <p>Walk through your full report with an Ascent strategist and map your highest-ROI next moves.</p>
+        <a href="#" class="btn">Book My Strategy Call →</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:20px"><a href="#assessTool" style="color:var(--muted);font-size:13px" onclick="resetAssessment()">↺ Retake the assessment</a></p>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- OPTION 2 — BENCHMARK REPORT                            -->
+<!-- ===================================================== -->
+<section id="opt2" class="panel">
+  <div class="b-hero hero-grad">
+    <div class="wrap">
+      <div class="b-grid">
+        <div>
+          <span class="badge"><span>📈</span> Free Industry Report</span>
+          <h1><span class="yr">2026</span> Incentive Travel &amp; Recognition Benchmark Report</h1>
+          <p class="sub">See exactly how leading sales organizations design, budget, and run their incentive programs — and where you stand against your peers.</p>
+          <ul class="b-list">
+            <li><span class="ck">✓</span> Average incentive budget by company size</li>
+            <li><span class="ck">✓</span> Most common qualification structures</li>
+            <li><span class="ck">✓</span> President's Club participation rates</li>
+            <li><span class="ck">✓</span> Top incentive travel destinations</li>
+            <li><span class="ck">✓</span> Retention &amp; sales performance impact</li>
+            <li><span class="ck">✓</span> Emerging recognition trends</li>
+          </ul>
+        </div>
+
+        <div class="gate">
+          <div class="cover">
+            <div class="ct"><small>Ascent Performance Group</small><b>2026 Benchmark Report</b></div>
+          </div>
+          <h3>Get the full report — free</h3>
+          <p class="note">Instant access. 28 pages of data executives actually use.</p>
+          <form onsubmit="event.preventDefault();this.querySelector('.priv').textContent='✓ Sent! Check your inbox.';">
+            <div class="field"><label>Full Name</label><input type="text" placeholder="Jane Doe" /></div>
+            <div class="field"><label>Company</label><input type="text" placeholder="Acme Corp" /></div>
+            <div class="field"><label>Work Email</label><input type="email" placeholder="jane@company.com" /></div>
+            <div class="field">
+              <label>Revenue Range</label>
+              <select><option>Under $50M</option><option>$50M – $250M</option><option>$250M – $1B</option><option>$1B+</option></select>
+            </div>
+            <button class="btn blue" style="width:100%" type="submit">Download the Report →</button>
+            <p class="priv">🔒 We respect your privacy. No spam, ever.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teaser stats -->
+  <div class="b-stats">
+    <div class="wrap">
+      <div class="head">
+        <h2>A preview of what's inside</h2>
+        <p>Benchmarked from sales organizations across manufacturing, technology, financial services, and more.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><div class="num">$3,200</div><div class="lbl">Median incentive spend per qualifier (mid-market)</div></div>
+        <div class="stat"><div class="num">18%</div><div class="lbl">Average sales-force President's Club qualification rate</div></div>
+        <div class="stat"><div class="num">23%</div><div class="lbl">Higher retention among incentive-trip qualifiers</div></div>
+        <div class="stat locked">
+          <span class="lockpill">🔒 Locked</span>
+          <div class="num blur">$X,XXX</div><div class="lbl">Top destination spend benchmark by region</div>
+        </div>
+        <div class="stat locked">
+          <span class="lockpill">🔒 Locked</span>
+          <div class="num blur">XX%</div><div class="lbl">Programs shifting to experiential rewards</div>
+        </div>
+        <div class="stat locked">
+          <span class="lockpill">🔒 Locked</span>
+          <div class="num blur">X.Xx</div><div class="lbl">Avg. ROI multiple on structured incentive travel</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table of contents -->
+  <div class="b-toc">
+    <div class="wrap">
+      <h2>What's covered in the report</h2>
+      <div class="toc-grid">
+        <div class="toc-item"><span class="n">1</span><div><b>Budget Benchmarks</b><span>Spend by company size &amp; industry</span></div></div>
+        <div class="toc-item"><span class="n">2</span><div><b>Qualification Models</b><span>How the best programs are structured</span></div></div>
+        <div class="toc-item"><span class="n">3</span><div><b>President's Club Data</b><span>Participation &amp; design trends</span></div></div>
+        <div class="toc-item"><span class="n">4</span><div><b>Top Destinations</b><span>Where winners are going in 2026</span></div></div>
+        <div class="toc-item"><span class="n">5</span><div><b>Retention Impact</b><span>The link between rewards &amp; tenure</span></div></div>
+        <div class="toc-item"><span class="n">6</span><div><b>Performance Lift</b><span>Sales results from strong programs</span></div></div>
+      </div>
+      <div style="text-align:center;margin-top:38px">
+        <a href="#" class="btn blue lg" onclick="document.querySelector('#opt2 .gate input').focus();return false;">Get Your Free Copy →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- OPTION 3 — TRIP COST CALCULATOR                        -->
+<!-- ===================================================== -->
+<section id="opt3" class="panel">
+  <div class="c-hero">
+    <div class="wrap">
+      <span class="badge blue"><span>🧮</span> Interactive Tool</span>
+      <h1>How Much Would Your Incentive Trip Actually Cost?</h1>
+      <p>Build your program in 30 seconds and get an instant, realistic budget range — no sales call required.</p>
+    </div>
+  </div>
+
+  <div class="calc-wrap">
+    <div class="calc-grid">
+      <!-- Inputs -->
+      <div class="calc-card">
+        <h3><span class="dot"></span> Design Your Program</h3>
+
+        <div class="slider-row">
+          <div class="lab"><b>Number of Qualifiers (Winners)</b><span class="v" id="vWin">25</span></div>
+          <input type="range" id="sWin" min="5" max="200" step="5" value="25" />
+        </div>
+        <div class="slider-row">
+          <div class="lab"><b>Guests per Winner</b><span class="v" id="vGuest">1</span></div>
+          <input type="range" id="sGuest" min="0" max="2" step="1" value="1" />
+        </div>
+        <div class="slider-row">
+          <div class="lab"><b>Trip Length (Nights)</b><span class="v" id="vNights">4</span></div>
+          <input type="range" id="sNights" min="2" max="7" step="1" value="4" />
+        </div>
+
+        <div class="field" style="margin-top:6px">
+          <label>Destination Type</label>
+          <div class="seg" id="segDest">
+            <button data-key="dom" class="on">Domestic</button>
+            <button data-key="intl">International</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Luxury Level</label>
+          <div class="seg green" id="segLux">
+            <button data-key="prem">Premium</button>
+            <button data-key="lux" class="on">Luxury</button>
+            <button data-key="ultra">Ultra-Luxury</button>
+          </div>
+        </div>
+
+        <!-- ADMIN: adjustable estimate factors -->
+        <div class="admin" id="admin">
+          <button class="admin-toggle" id="adminToggle" type="button">
+            <span class="lbl">⚙ Admin · Adjust estimate factors</span>
+            <span class="chev">▾</span>
+          </button>
+          <div class="admin-body">
+            <p class="admin-note">Internal controls — tune the assumptions behind the estimate. Changes update the calculator live.</p>
+
+            <h4>Per-Person Costs</h4>
+            <div class="adgrid">
+              <div class="adfield">
+                <label>Nightly rate / traveler</label>
+                <div class="inp"><span class="pre">$</span><input type="number" id="aNightly" class="haspre" value="700" min="0" step="25" /></div>
+              </div>
+              <div class="adfield">
+                <label>Activities / traveler (per 4 nights)</label>
+                <div class="inp"><span class="pre">$</span><input type="number" id="aEvents" class="haspre" value="350" min="0" step="25" /></div>
+              </div>
+              <div class="adfield">
+                <label>Domestic airfare / traveler</label>
+                <div class="inp"><span class="pre">$</span><input type="number" id="aAirDom" class="haspre" value="550" min="0" step="25" /></div>
+              </div>
+              <div class="adfield">
+                <label>Intl airfare / traveler</label>
+                <div class="inp"><span class="pre">$</span><input type="number" id="aAirIntl" class="haspre" value="1900" min="0" step="50" /></div>
+              </div>
+            </div>
+
+            <h4>Multipliers</h4>
+            <div class="adgrid">
+              <div class="adfield">
+                <label>International destination ×</label>
+                <div class="inp"><input type="number" id="aDestIntl" value="1.45" min="1" step="0.05" /></div>
+              </div>
+              <div class="adfield">
+                <label>Premium tier ×</label>
+                <div class="inp"><input type="number" id="aLuxPrem" value="0.8" min="0.1" step="0.05" /></div>
+              </div>
+              <div class="adfield">
+                <label>Luxury tier ×</label>
+                <div class="inp"><input type="number" id="aLuxLux" value="1" min="0.1" step="0.05" /></div>
+              </div>
+              <div class="adfield">
+                <label>Ultra-Luxury tier ×</label>
+                <div class="inp"><input type="number" id="aLuxUltra" value="1.35" min="0.1" step="0.05" /></div>
+              </div>
+            </div>
+
+            <h4>Fees &amp; Range</h4>
+            <div class="adgrid">
+              <div class="adfield">
+                <label>Program management fee</label>
+                <div class="inp"><input type="number" id="aMgmt" class="haspost" value="15" min="0" step="1" /><span class="post">%</span></div>
+              </div>
+              <div class="adfield">
+                <label>Range spread (±)</label>
+                <div class="inp"><input type="number" id="aSpread" class="haspost" value="12" min="0" step="1" /><span class="post">%</span></div>
+              </div>
+            </div>
+
+            <div class="admin-actions">
+              <button type="button" class="primary" id="adminApply">Apply</button>
+              <button type="button" id="adminReset">Reset defaults</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="result-card">
+
+        <!-- Always-visible program summary -->
+        <div class="summary">
+          <div class="sr"><span>Winners</span><b id="sumWin">25</b></div>
+          <div class="sr"><span>Guests</span><b id="sumGuest">25</b></div>
+          <div class="sr"><span>Total Travelers</span><b id="sumTotal">50</b></div>
+          <div class="sr"><span>Trip Length</span><b id="sumNights">4 Nights</b></div>
+          <div class="sr"><span>Experience</span><b id="sumExp">Domestic · Luxury</b></div>
+        </div>
+
+        <!-- STEP A: locked estimate + email gate -->
+        <div id="calcGate">
+          <div class="locked-est">
+            <span class="lockpill">🔒 Locked</span>
+            <div class="estlabel">Estimated Program Investment</div>
+            <div class="est blurred">$XXX,XXX</div>
+            <div class="per">Enter your email to reveal your custom estimate</div>
+          </div>
+          <form id="revealForm">
+            <input type="text" id="rfName" placeholder="Full name" required style="margin-bottom:10px" />
+            <input type="text" id="rfCompany" placeholder="Company" required style="margin-bottom:10px" />
+            <input type="email" id="rfEmail" placeholder="Work email" required style="margin-bottom:10px" />
+            <select id="rfRevenue" required style="margin-bottom:14px;color:#fff;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)">
+              <option value="" disabled style="color:#333">Estimated company revenue</option>
+              <option style="color:#333">Under $50M</option>
+              <option style="color:#333">$50M – $250M</option>
+              <option style="color:#333">$250M – $1B</option>
+              <option style="color:#333">$1B+</option>
+            </select>
+            <button class="btn" type="submit" style="width:100%">Reveal My Estimate →</button>
+          </form>
+          <p class="disc">🔒 We'll only use this to send your estimate &amp; proposal.</p>
+        </div>
+
+        <!-- STEP B: revealed estimate + proposal CTA -->
+        <div id="calcReveal" style="display:none">
+          <div class="estlabel">Estimated Program Investment</div>
+          <div class="est" id="estRange">$175K – $225K</div>
+          <div class="per" id="perPerson">≈ $4,000 per person, all-in</div>
+
+          <ul class="incl">
+            <li><span class="ck">✓</span> Airfare &amp; ground transportation</li>
+            <li><span class="ck">✓</span> Resort accommodations</li>
+            <li><span class="ck">✓</span> Activities &amp; excursions</li>
+            <li><span class="ck">✓</span> Group events &amp; dining</li>
+            <li><span class="ck">✓</span> Full program management</li>
+          </ul>
+
+          <div class="next-step">
+            <b>Want this built into a real proposal?</b>
+            <p>Get an itemized budget and recommended destinations on a 20-minute call with an Ascent strategist.</p>
+            <a href="#" class="btn" style="width:100%" onclick="document.getElementById('calcDisc').textContent='✓ Thanks! A strategist will reach out shortly.';return false;">Schedule My Strategy Call →</a>
+          </div>
+          <p class="disc" id="calcDisc">Estimates are directional ranges for planning purposes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p class="footer-note">Mockup concepts for Ascent Performance Group · Built for internal review</p>
+
+<script>
+/* ---------- Switcher ---------- */
+const switcher = document.getElementById('switcher');
+switcher.addEventListener('click', e=>{
+  const btn = e.target.closest('button'); if(!btn) return;
+  document.querySelectorAll('#switcher button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(btn.dataset.target).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+});
+
+/* ---------- Option 1: Assessment flow ---------- */
+let curStep = 1; const totalSteps = 3;
+const stepLabel = document.getElementById('stepLabel');
+const progBar = document.getElementById('progBar');
+const backBtn = document.getElementById('backBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+function showStep(n){
+  document.querySelectorAll('.stepscreen').forEach(s=>s.classList.toggle('active', +s.dataset.step===n));
+  stepLabel.textContent = `Step ${n} of ${totalSteps}`;
+  progBar.style.width = (n/totalSteps*100)+'%';
+  backBtn.style.visibility = n>1 ? 'visible':'hidden';
+  nextBtn.textContent = n===totalSteps ? 'Generate My Report →' : 'Next →';
+}
+nextBtn.addEventListener('click', ()=>{
+  if(curStep < totalSteps){ curStep++; showStep(curStep); }
+  else { generateReport(); }
+});
+backBtn.addEventListener('click', ()=>{ if(curStep>1){ curStep--; showStep(curStep);} });
+
+/* ---- ROI admin / scoring engine ---- */
+const roiVal = id => parseFloat(document.getElementById(id).value) || 0;
+
+// Scoring rubric: each answer choice contributes points (0-100) to its pillar.
+// A pillar score = average of points from the answers selected; overall = weighted avg of pillars.
+const SCORING = [
+  {key:'rec', name:'Recognition', rate:'rate_rec', fill:'fill_rec', weight:25, questions:[
+    {sel:'q_pc', label:"President's Club?", opts:[['Yes',80],['No',15],['Considering it',45]]},
+    {sel:'q_reward', label:'Primary Reward Type', opts:[['Cash bonuses only',25],['Mix of cash & travel',55],["Incentive travel / President's Club focused",90]]}
+  ]},
+  {key:'qual', name:'Qualification Structure', rate:'rate_qual', fill:'fill_qual', weight:25, questions:[
+    {sel:'q_part', label:'Qualifier Participation Rate', opts:[['Under 10%',20],['10% – 25%',45],['25% – 50%',70],['Over 50%',90]]},
+    {sel:'q_freq', label:'Trip Frequency', opts:[['Annually',85],['Every 2+ years',50],['Ad hoc / Never',20]]}
+  ]},
+  {key:'reward', name:'Reward Value', rate:'rate_reward', fill:'fill_reward', weight:25, questions:[
+    {sel:'q_budget', label:'Incentive Budget', opts:[['Under $100K',25],['$100K – $500K',55],['$500K – $2M',80],['$2M+',95]]},
+    {sel:'q_growth', label:'Sales Growth Goal', opts:[['Maintain',40],['10% – 25% growth',65],['25%+ growth',85]]}
+  ]},
+  {key:'comm', name:'Program Communication', rate:'rate_comm', fill:'fill_comm', weight:25, questions:[
+    {sel:'q_comm', label:'Communication Frequency', opts:[['Once or twice a year',30],['Quarterly',65],['Monthly / Ongoing',90]]},
+    {sel:'q_ret', label:'Retention Concern', opts:[['Yes — losing top performers',25],['Somewhat',55],['No major concern',85]]}
+  ]}
+];
+const ROI_STATIC_DEFAULTS = {thWeak:40,thBelow:55,thAvg:75,aProdLo:8,aProdHi:15,aRetLo:5,aRetHi:12};
+
+function ratingFor(s){
+  if(s < roiVal('thWeak'))  return {label:'Weak',          cls:'weak'};
+  if(s < roiVal('thBelow')) return {label:'Below Average', cls:'below'};
+  if(s < roiVal('thAvg'))   return {label:'Average',       cls:'avg'};
+  return {label:'Strong', cls:'strong'};
+}
+
+function renderRubric(){
+  const host = document.getElementById('scoringRubric');
+  host.innerHTML = SCORING.map(p=>`
+    <div class="rubric-pillar">
+      <div class="rubric-head">
+        <span class="pname">${p.name}</span>
+        <span class="wt">Weight
+          <span class="winp"><input type="number" id="wt_${p.key}" value="${p.weight}" min="0" step="5"><span class="post">%</span></span>
+        </span>
+      </div>
+      ${p.questions.map(q=>`
+        <div class="rubric-q">
+          <div class="rubric-q-label">${q.label}</div>
+          <div class="rubric-opts">
+            ${q.opts.map((o,i)=>`
+              <div class="rubric-opt"><span class="ot">${o[0]}</span>
+                <input type="number" id="pt_${q.sel}_${i}" value="${o[1]}" min="0" max="100"></div>`).join('')}
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+  host.querySelectorAll('input').forEach(inp=>inp.addEventListener('input', ()=>{ if(reportVisible()) paintGauge(renderPillars(), false); }));
+}
+
+function renderPillars(){
+  let wsum=0, wscore=0, best=null, worst=null;
+  SCORING.forEach(p=>{
+    let sum=0, n=0;
+    p.questions.forEach(q=>{
+      const val = document.getElementById(q.sel).value;
+      const idx = q.opts.findIndex(o=>o[0]===val);
+      sum += (idx>=0 ? roiVal('pt_'+q.sel+'_'+idx) : 0); n++;
+    });
+    const s = n ? Math.round(sum/n) : 0;
+    const w = roiVal('wt_'+p.key);
+    wsum += w; wscore += s*w;
+    if(!best || s>best.s) best={name:p.name, s};
+    if(!worst || s<worst.s) worst={name:p.name, s};
+    const r = ratingFor(s);
+    const rate = document.getElementById(p.rate);
+    rate.textContent = r.label; rate.className = 'rate '+r.cls;
+    const fill = document.getElementById(p.fill);
+    fill.style.width = s+'%'; fill.className = 'fill-'+r.cls;
+  });
+  document.getElementById('up_prod').textContent = roiVal('aProdLo')+'–'+roiVal('aProdHi')+'%';
+  document.getElementById('up_ret').textContent  = roiVal('aRetLo')+'–'+roiVal('aRetHi')+'%';
+  document.getElementById('thStrong').value = document.getElementById('thAvg').value;
+  if(best && worst){
+    document.getElementById('ledeText').textContent =
+      `Your program's strongest area is ${best.name.toLowerCase()}, while ${worst.name.toLowerCase()} represents your biggest opportunity. Here's how you compare to similar organizations.`;
+  }
+  return wsum>0 ? Math.round(wscore/wsum) : 0;
+}
+
+function paintGauge(target, animate){
+  const arc = document.getElementById('gaugeArc'), num = document.getElementById('scoreNum'), circ = 490;
+  if(!animate){ num.textContent=target; arc.style.strokeDashoffset = circ-(circ*target/100); return; }
+  let cur = 0;
+  const step = ()=>{
+    cur += 2; if(cur>target) cur=target;
+    num.textContent = cur;
+    arc.style.strokeDashoffset = circ - (circ*cur/100);
+    if(cur<target) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const reportVisible = () => document.getElementById('reportArea').style.display==='block';
+
+renderRubric();
+document.getElementById('adminROIToggle').addEventListener('click', ()=>{
+  document.getElementById('adminROI').classList.toggle('open');
+});
+document.getElementById('adminROIApply').addEventListener('click', ()=>paintGauge(renderPillars(), true));
+Object.keys(ROI_STATIC_DEFAULTS).forEach(id=>{
+  document.getElementById(id).addEventListener('input', ()=>{ if(reportVisible()) paintGauge(renderPillars(), false); });
+});
+document.getElementById('adminROIReset').addEventListener('click', ()=>{
+  Object.entries(ROI_STATIC_DEFAULTS).forEach(([id,v])=>document.getElementById(id).value=v);
+  renderRubric();
+  if(reportVisible()) paintGauge(renderPillars(), false);
+});
+
+function generateReport(){
+  document.getElementById('assessCard').style.display='none';
+  const report = document.getElementById('reportArea');
+  report.style.display='block';
+  report.scrollIntoView({behavior:'smooth'});
+  paintGauge(renderPillars(), true);
+}
+function resetAssessment(){
+  curStep=1; showStep(1);
+  document.getElementById('reportArea').style.display='none';
+  document.getElementById('assessCard').style.display='block';
+  document.getElementById('gaugeArc').style.strokeDashoffset=490;
+  document.getElementById('scoreNum').textContent='0';
+}
+
+/* ---------- Option 3: Calculator ---------- */
+const fmt = n => '$' + Math.round(n/1000) + 'K';
+let estUnlocked = false;
+
+/* ---- Prefill calculator gate with random sample data ---- */
+(function prefillGate(){
+  const first = ['Jordan','Taylor','Morgan','Casey','Riley','Avery','Drew','Sydney','Cameron','Reese'];
+  const last  = ['Bennett','Carter','Hayes','Foster','Reynolds','Sullivan','Brooks','Coleman','Mercer','Donovan'];
+  const cos   = ['Northwind Logistics','Apex Medical','Vertex Software','Summit Financial','Granite Industrial','Meridian Health','Coastal Distribution','Ironclad Systems','Beacon Capital','Pinnacle Manufacturing'];
+  const revs  = ['Under $50M','$50M – $250M','$250M – $1B','$1B+'];
+  const pick = a => a[Math.floor(Math.random()*a.length)];
+  const f = pick(first), l = pick(last), co = pick(cos);
+  const domain = co.split(' ')[0].toLowerCase().replace(/[^a-z]/g,'') + '.com';
+  document.getElementById('rfName').value = f + ' ' + l;
+  document.getElementById('rfCompany').value = co;
+  document.getElementById('rfEmail').value = (f[0] + l).toLowerCase() + '@' + domain;
+  document.getElementById('rfRevenue').value = pick(revs);
+})();
+
+document.getElementById('revealForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  estUnlocked = true;
+  document.getElementById('calcGate').style.display='none';
+  document.getElementById('calcReveal').style.display='block';
+  calc();
+});
+
+function bindSeg(id){
+  document.getElementById(id).addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    [...e.currentTarget.children].forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); calc();
+  });
+}
+bindSeg('segDest');
+bindSeg('segLux');
+
+['sWin','sGuest','sNights'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', calc);
+});
+
+/* ---- Admin panel ---- */
+const ADMIN_DEFAULTS = {aNightly:700,aEvents:350,aAirDom:550,aAirIntl:1900,aDestIntl:1.45,aLuxPrem:0.8,aLuxLux:1,aLuxUltra:1.35,aMgmt:15,aSpread:12};
+const adminVal = id => parseFloat(document.getElementById(id).value) || 0;
+const luxMap = {prem:'aLuxPrem',lux:'aLuxLux',ultra:'aLuxUltra'};
+
+document.getElementById('adminToggle').addEventListener('click', ()=>{
+  document.getElementById('admin').classList.toggle('open');
+});
+document.getElementById('adminApply').addEventListener('click', calc);
+Object.keys(ADMIN_DEFAULTS).forEach(id=>{
+  document.getElementById(id).addEventListener('input', calc);
+});
+document.getElementById('adminReset').addEventListener('click', ()=>{
+  Object.entries(ADMIN_DEFAULTS).forEach(([id,v])=>document.getElementById(id).value=v);
+  calc();
+});
+
+function calc(){
+  const win = +document.getElementById('sWin').value;
+  const gPer = +document.getElementById('sGuest').value;
+  const nights = +document.getElementById('sNights').value;
+  const guests = win*gPer;
+  const total = win + guests;
+
+  // labels
+  document.getElementById('vWin').textContent = win;
+  document.getElementById('vGuest').textContent = gPer;
+  document.getElementById('vNights').textContent = nights;
+  document.getElementById('sumWin').textContent = win;
+  document.getElementById('sumGuest').textContent = guests;
+  document.getElementById('sumTotal').textContent = total;
+  document.getElementById('sumNights').textContent = nights + (nights===1?' Night':' Nights');
+
+  const destBtn = document.querySelector('#segDest .on');
+  const luxBtn = document.querySelector('#segLux .on');
+  document.getElementById('sumExp').textContent = destBtn.textContent + ' · ' + luxBtn.textContent;
+
+  // factors from admin panel
+  const isIntl = destBtn.dataset.key === 'intl';
+  const destMult = isIntl ? adminVal('aDestIntl') : 1;
+  const luxMult = adminVal(luxMap[luxBtn.dataset.key]);
+  const airPP = isIntl ? adminVal('aAirIntl') : adminVal('aAirDom');
+
+  // cost: travelers * nights * nightly + airfare per traveler + mgmt fee
+  const airfare = airPP * total;
+  const lodging = total * nights * adminVal('aNightly') * luxMult * destMult;
+  const events  = total * adminVal('aEvents') * nights/4;
+  const subtotal = airfare + lodging + events;
+  const mgmt = subtotal * (adminVal('aMgmt')/100);
+  const grand = subtotal + mgmt;
+
+  if(estUnlocked){
+    const spread = adminVal('aSpread')/100;
+    const low = grand*(1-spread), high = grand*(1+spread);
+    document.getElementById('estRange').textContent = fmt(low) + ' – ' + fmt(high);
+    document.getElementById('perPerson').textContent = '≈ $' + Math.round(grand/total).toLocaleString() + ' per person, all-in';
+  }
+}
+calc();
+</script>
+</body>
+</html>
