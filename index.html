@@ -1280,7 +1280,14 @@ function resetAssessment(){
 }
 
 /* ---------- Option 3: Calculator ---------- */
-const fmtK = n => '$' + Math.round(n/1000) + 'K';
+const fmtK = n => {
+  if(n >= 1e6){
+    const m = Math.round(n / 1e4) / 100;
+    const str = Number.isInteger(m) ? String(m) : m.toFixed(2).replace(/\.?0+$/, '');
+    return '$' + str + 'M';
+  }
+  return '$' + Math.round(n / 1000) + 'K';
+};
 const fmt$ = n => '$' + Math.round(n).toLocaleString();
 let estUnlocked = false;
 
