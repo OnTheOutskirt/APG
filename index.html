@@ -820,15 +820,16 @@
         </div>
 
         <div class="field" style="margin-top:6px">
-          <label>Destination Type</label>
+          <label>Destination</label>
           <div class="seg" id="segDest">
-            <button data-key="dom" class="on">Domestic</button>
-            <button data-key="intl">International</button>
+            <button data-key="us" class="on">U.S.</button>
+            <button data-key="mx">Mexico/Caribbean</button>
+            <button data-key="eu">Europe</button>
           </div>
         </div>
 
         <div class="field">
-          <label>Luxury Level</label>
+          <label>Resort Style</label>
           <div class="seg green" id="segLux">
             <button data-key="prem">Premium</button>
             <button data-key="ai">All-Inclusive</button>
@@ -904,14 +905,16 @@
             <div class="admin-section">
               <h4>Airfare / Traveler</h4>
               <p class="sec-hint">Also applied to travel staff</p>
-              <div class="adgrid">
+              <div class="tier-labels"><span>U.S.</span><span>Mexico/Caribbean</span><span>Europe</span></div>
+              <div class="adgrid-3">
                 <div class="adfield">
-                  <label>Domestic</label>
-                  <div class="inp"><span class="pre">$</span><input type="number" id="aAirDom" class="haspre" value="650" min="0" step="25" /></div>
+                  <div class="inp"><span class="pre">$</span><input type="number" id="aAirUS" class="haspre" value="650" min="0" step="25" /></div>
                 </div>
                 <div class="adfield">
-                  <label>International</label>
-                  <div class="inp"><span class="pre">$</span><input type="number" id="aAirIntl" class="haspre" value="2000" min="0" step="50" /></div>
+                  <div class="inp"><span class="pre">$</span><input type="number" id="aAirMX" class="haspre" value="1000" min="0" step="25" /></div>
+                </div>
+                <div class="adfield">
+                  <div class="inp"><span class="pre">$</span><input type="number" id="aAirEU" class="haspre" value="2000" min="0" step="50" /></div>
                 </div>
               </div>
             </div>
@@ -1010,8 +1013,8 @@
         <div class="summary">
           <div class="sr"><span>Travelers</span><b id="sumTotal">25</b></div>
           <div class="sr"><span>Trip Length</span><b id="sumNights">4 Nights</b></div>
-          <div class="sr"><span>Destination Type</span><b id="sumDest">Domestic</b></div>
-          <div class="sr"><span>Luxury Level</span><b id="sumLux">Luxury</b></div>
+          <div class="sr"><span>Destination</span><b id="sumDest">U.S.</b></div>
+          <div class="sr"><span>Resort Style</span><b id="sumLux">Luxury</b></div>
         </div>
 
         <!-- STEP A: locked estimate + email gate -->
@@ -1497,7 +1500,7 @@ const ADMIN_DEFAULTS = {
   aNightAI:750, aNightPrem:550, aNightLux:850,
   aActCost:350, aActCutoff:6, aActLow:2, aActHigh:3,
   aDinAI:400, aDinPrem:800, aDinLux:1000,
-  aAirDom:650, aAirIntl:2000,
+  aAirUS:650, aAirMX:1000, aAirEU:2000,
   aStaffT1:30, aStaffN1:1, aStaffT2:75, aStaffN2:2, aStaffN3:3,
   aStaffDay:550, aStaffNightAI:450, aStaffNightPrem:400, aStaffNightLux:650,
   aMgmt:22, aSpread:5
@@ -1506,6 +1509,7 @@ const adminVal = id => parseFloat(document.getElementById(id).value) || 0;
 const nightMap = {ai:'aNightAI', prem:'aNightPrem', lux:'aNightLux'};
 const dinMap   = {ai:'aDinAI',   prem:'aDinPrem',   lux:'aDinLux'};
 const staffNightMap = {ai:'aStaffNightAI', prem:'aStaffNightPrem', lux:'aStaffNightLux'};
+const airMap = {us:'aAirUS', mx:'aAirMX', eu:'aAirEU'};
 
 document.getElementById('adminToggle').addEventListener('click', ()=>{
   document.getElementById('admin').classList.toggle('open');
@@ -1570,12 +1574,12 @@ function calc(){
   const destBtn = document.querySelector('#segDest .on');
   const luxBtn = document.querySelector('#segLux .on');
   const luxKey = luxBtn.dataset.key;
-  const isIntl = destBtn.dataset.key === 'intl';
+  const destKey = destBtn.dataset.key;
 
   const actCount = nights <= adminVal('aActCutoff') ? adminVal('aActLow') : adminVal('aActHigh');
   const staffN = staffCountFor(travelers);
   const staffDays = nights + 1;
-  const airPP = isIntl ? adminVal('aAirIntl') : adminVal('aAirDom');
+  const airPP = adminVal(airMap[destKey]);
   const baseTravelerNightly = adminVal(nightMap[luxKey]);
   const baseStaffNightly = adminVal(staffNightMap[luxKey]);
 
