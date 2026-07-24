@@ -1435,7 +1435,8 @@ function getLeadData(){
   return {
     name, email, company, revenue,
     firstName: parts[0] || '',
-    lastName: parts.slice(1).join(' ') || ''
+    lastName: parts.slice(1).join(' ') || '',
+    companyNote: company ? ('Business Name: ' + company) : ''
   };
 }
 
@@ -1482,10 +1483,11 @@ function buildCalendlyUrl(path){
   const params = new URLSearchParams();
   if(lead.name) params.set('name', lead.name);
   if(lead.email) params.set('email', lead.email);
-  if(lead.company) params.set('a1', lead.company);
+  if(lead.companyNote) params.set('a1', lead.companyNote);
   if(lead.revenue) params.set('a2', lead.revenue);
   params.set('utm_content', path);
-  return CALENDLY_BASE + '?' + params.toString();
+  // Calendly treats "+" as a literal character; use %20 for spaces
+  return CALENDLY_BASE + '?' + params.toString().replace(/\+/g, '%20');
 }
 
 function initCalendlyWidget(path){
@@ -1508,7 +1510,7 @@ function initCalendlyWidget(path){
       customAnswers: {}
     }
   };
-  if(lead.company) opts.prefill.customAnswers.a1 = lead.company;
+  if(lead.companyNote) opts.prefill.customAnswers.a1 = lead.companyNote;
   if(lead.revenue) opts.prefill.customAnswers.a2 = lead.revenue;
 
   Calendly.initInlineWidget(opts);
