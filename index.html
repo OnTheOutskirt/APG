@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ascent Performance Group - Lead Magnet Concepts</title>
+<title>Ascent Performance Group - Trip Cost Calculator</title>
 <link rel="preconnect" href="https://assets.calendly.com" crossorigin>
 <link rel="preconnect" href="https://calendly.com" crossorigin>
 <link rel="dns-prefetch" href="https://calendly.com">
@@ -52,28 +52,9 @@
   }
   .demobar .brand{display:flex;align-items:center;gap:12px;min-width:200px}
   .demobar .brand img{height:34px;width:auto}
-  .demobar .tag{
-    font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--muted);border-left:1px solid var(--line);padding-left:12px;
-  }
-  .switcher{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
-  .switcher button{
-    font:inherit;font-size:13px;font-weight:600;cursor:pointer;
-    border:1px solid var(--line);background:#fff;color:var(--muted);
-    padding:9px 16px;border-radius:999px;transition:.18s;white-space:nowrap;
-    display:flex;align-items:center;gap:8px;
-  }
-  .switcher button .num{
-    display:inline-flex;align-items:center;justify-content:center;
-    width:20px;height:20px;border-radius:50%;background:var(--bg);
-    font-size:11px;font-weight:800;color:var(--muted);transition:.18s;
-  }
-  .switcher button:hover{border-color:var(--apg-blue);color:var(--apg-blue)}
-  .switcher button.active{
-    background:var(--apg-blue);border-color:var(--apg-blue);color:#fff;
-    box-shadow:0 6px 16px rgba(15,102,180,.3);
-  }
-  .switcher button.active .num{background:rgba(255,255,255,.25);color:#fff}
+  .demobar .tag{display:none}
+  .switcher{display:none}
+  #opt1,#opt2,#admin{display:none!important}
 
   /* ---------- generic ---------- */
   .panel{display:none;animation:fade .4s ease}
@@ -117,10 +98,25 @@
   }
   input:focus,select:focus{outline:none;border-color:var(--apg-blue);box-shadow:0 0 0 4px rgba(15,102,180,.12)}
 
-  .footer-note{
-    text-align:center;color:var(--muted);font-size:13px;
-    padding:40px 24px 60px;
+  .footer-note{display:none}
+
+  .thankyou-panel{
+    display:none;max-width:640px;margin:40px auto 80px;padding:0 20px;
+    animation:fade .45s ease;text-align:center;
   }
+  .thankyou-panel.show{display:block}
+  .thankyou-card{
+    background:#fff;border:1px solid var(--line);border-radius:18px;
+    box-shadow:var(--shadow-lg);padding:48px 36px;
+  }
+  .thankyou-card .check{
+    width:56px;height:56px;border-radius:50%;margin:0 auto 18px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(31,162,62,.12);color:var(--apg-green-dark);
+    font-size:26px;font-weight:800;
+  }
+  .thankyou-card h2{font-size:28px;margin-bottom:10px;letter-spacing:-.02em}
+  .thankyou-card p{color:var(--muted);font-size:16px;line-height:1.5;max-width:420px;margin:0 auto}
 
   /* =====================================================
      OPTION 1 - ROI ASSESSMENT
@@ -478,17 +474,11 @@
 </head>
 <body>
 
-<!-- ===================== DEMO SWITCHER ===================== -->
+<!-- ===================== TOP BAR ===================== -->
 <div class="demobar">
   <div class="demobar-inner">
     <div class="brand">
       <img src="apg_logo.png" alt="Ascent Performance Group" />
-    </div>
-    <span class="tag">Lead Magnet Concepts</span>
-    <div class="switcher" id="switcher">
-      <button class="active" data-target="opt3"><span class="num">1</span> Trip Cost Calculator</button>
-      <button data-target="opt1"><span class="num">2</span> ROI Assessment</button>
-      <button data-target="opt2"><span class="num">3</span> Benchmark Report</button>
     </div>
   </div>
 </div>
@@ -1128,22 +1118,30 @@
         <a class="btn" id="calendlyOpenBtn" href="https://calendly.com/casey-lazar-ascentperformancegroup/30min" target="_blank" rel="noopener">Open Calendly →</a>
       </div>
     </div>
+
+    <div class="thankyou-panel" id="thankYouPanel">
+      <div class="thankyou-card">
+        <div class="check" aria-hidden="true">✓</div>
+        <h2>You're booked</h2>
+        <p>Thanks for scheduling. Check your email for the calendar invite - we look forward to talking through your incentive trip.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<p class="footer-note">Mockup concepts for Ascent Performance Group · Built for internal review</p>
-
 <script>
-/* ---------- Switcher ---------- */
+/* ---------- Switcher (hidden in live page) ---------- */
 const switcher = document.getElementById('switcher');
-switcher.addEventListener('click', e=>{
-  const btn = e.target.closest('button'); if(!btn) return;
-  document.querySelectorAll('#switcher button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById(btn.dataset.target).classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
-});
+if(switcher){
+  switcher.addEventListener('click', e=>{
+    const btn = e.target.closest('button'); if(!btn) return;
+    document.querySelectorAll('#switcher button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById(btn.dataset.target).classList.add('active');
+    window.scrollTo({top:0,behavior:'instant'});
+  });
+}
 
 /* ---------- Option 1: Assessment flow ---------- */
 let curStep = 1; const totalSteps = 3;
@@ -1561,6 +1559,23 @@ function openCalendly(path, e){
 }
 document.getElementById('btnSchedule').addEventListener('click', e=>openCalendly('expecting', e));
 document.getElementById('btnRightSize').addEventListener('click', e=>openCalendly('expensive', e));
+
+function showThankYou(){
+  const cal = document.getElementById('calendlyPanel');
+  const ty = document.getElementById('thankYouPanel');
+  if(cal) cal.classList.remove('show');
+  if(ty){
+    ty.classList.add('show');
+    ty.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+window.addEventListener('message', e=>{
+  const data = e.data;
+  if(!data) return;
+  const eventName = typeof data === 'string' ? (()=>{ try{return JSON.parse(data).event}catch(err){return null} })() : data.event;
+  if(eventName === 'calendly.event_scheduled') showThankYou();
+});
 
 /* ---- Admin panel ---- */
 const ADMIN_DEFAULTS = {
