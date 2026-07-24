@@ -4,6 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ascent Performance Group - Lead Magnet Concepts</title>
+<link rel="preconnect" href="https://assets.calendly.com" crossorigin>
+<link rel="preconnect" href="https://calendly.com" crossorigin>
+<link rel="dns-prefetch" href="https://calendly.com">
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <style>
@@ -255,7 +258,16 @@
   .calendly-panel.fallback-mode #calendlyInline{display:none}
   .calendly-panel.fallback-mode .cal-fallback{display:block}
   .calendly-panel .cal-fallback p{color:var(--muted);max-width:420px;margin:0 auto 22px;font-size:15px;line-height:1.45}
-  #calendlyInline{min-height:720px}
+  #calendlyInline{min-height:720px;position:relative}
+  #calendlyInline.cal-booting::after{
+    content:'Loading scheduler...';
+    position:absolute;inset:40px 0 auto;text-align:center;
+    color:var(--muted);font-size:14px;font-weight:600;pointer-events:none;
+  }
+  #calendlyWarm{
+    position:absolute;width:1px;height:1px;overflow:hidden;
+    clip:rect(0,0,0,0);pointer-events:none;opacity:0;
+  }
   .calc-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);padding:30px}
   .calc-card h3{font-size:18px;margin-bottom:22px;display:flex;align-items:center;gap:10px}
   .calc-card h3 .dot{width:9px;height:9px;border-radius:50%;background:var(--apg-green)}
@@ -1113,7 +1125,7 @@
       <div id="calendlyInline"></div>
       <div class="cal-fallback">
         <p id="calFallback">Having trouble loading the scheduler? Open Calendly in a new tab.</p>
-        <a class="btn" id="calendlyOpenBtn" href="https://calendly.com/casey-lazar-ascentperformancegroup" target="_blank" rel="noopener">Open Calendly →</a>
+        <a class="btn" id="calendlyOpenBtn" href="https://calendly.com/casey-lazar-ascentperformancegroup/30min" target="_blank" rel="noopener">Open Calendly →</a>
       </div>
     </div>
   </div>
@@ -1340,6 +1352,7 @@ document.getElementById('revealForm').addEventListener('submit', e=>{
   loadMsg.textContent = REVEAL_LOAD_STEPS[0].msg;
   loadMsg.classList.remove('fade');
   loadBar.style.width = '0%';
+  warmCalendlyAssets(); // warm scheduler during the reveal wait
 
   const timers = REVEAL_LOAD_STEPS.map(step =>
     setTimeout(()=>{
@@ -1426,8 +1439,45 @@ function getLeadData(){
   };
 }
 
+const CALENDLY_BASE = 'https://calendly.com/casey-lazar-ascentperformancegroup/30min';
+let calendlyWarmed = false;
+
+function whenCalendlyReady(cb, tries=40){
+  if(window.Calendly){ cb(); return; }
+  if(tries <= 0) return;
+  setTimeout(()=> whenCalendlyReady(cb, tries - 1), 150);
+}
+
+function warmCalendlyAssets(){
+  if(calendlyWarmed) return;
+  whenCalendlyReady(()=>{
+    if(calendlyWarmed) return;
+    let warm = document.getElementById('calendlyWarm');
+    if(!warm){
+      warm = document.createElement('div');
+      warm.id = 'calendlyWarm';
+      warm.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(warm);
+    }
+    try {
+      warm.innerHTML = '';
+      Calendly.initInlineWidget({
+        url: CALENDLY_BASE,
+        parentElement: warm,
+        resize: false
+      });
+      calendlyWarmed = true;
+    } catch(err){ /* retry on next trigger */ }
+  });
+}
+
+if('requestIdleCallback' in window){
+  requestIdleCallback(()=> warmCalendlyAssets(), {timeout: 2000});
+} else {
+  setTimeout(warmCalendlyAssets, 1000);
+}
+
 function buildCalendlyUrl(path){
-  const base = 'https://calendly.com/casey-lazar-ascentperformancegroup';
   const lead = getLeadData();
   const params = new URLSearchParams();
   if(lead.name) params.set('name', lead.name);
@@ -1435,7 +1485,7 @@ function buildCalendlyUrl(path){
   if(lead.company) params.set('a1', lead.company);
   if(lead.revenue) params.set('a2', lead.revenue);
   params.set('utm_content', path);
-  return base + '?' + params.toString();
+  return CALENDLY_BASE + '?' + params.toString();
 }
 
 function initCalendlyWidget(path){
@@ -1444,6 +1494,7 @@ function initCalendlyWidget(path){
   const url = buildCalendlyUrl(path);
 
   inline.innerHTML = '';
+  inline.classList.add('cal-booting');
 
   const opts = {
     url,
@@ -1461,13 +1512,21 @@ function initCalendlyWidget(path){
   if(lead.revenue) opts.prefill.customAnswers.a2 = lead.revenue;
 
   Calendly.initInlineWidget(opts);
+
+  // Clear boot message once Calendly iframe appears
+  const watch = setInterval(()=>{
+    if(inline.querySelector('iframe')){
+      inline.classList.remove('cal-booting');
+      clearInterval(watch);
+    }
+  }, 200);
+  setTimeout(()=>{ inline.classList.remove('cal-booting'); clearInterval(watch); }, 8000);
 }
 
 function openCalendly(path, e){
   if(e) e.preventDefault();
   document.querySelector('#opt3 .calc-grid').style.display = 'none';
   const panel = document.getElementById('calendlyPanel');
-  const inline = document.getElementById('calendlyInline');
   const copy = CAL_COPY[path] || CAL_COPY.expecting;
   const calUrl = buildCalendlyUrl(path);
 
@@ -1488,7 +1547,13 @@ function openCalendly(path, e){
   };
 
   if(window.Calendly) load();
-  else setTimeout(()=> window.Calendly ? load() : (panel.classList.add('fallback-mode'), window.open(calUrl, '_blank', 'noopener')), 600);
+  else whenCalendlyReady(()=>{
+    if(window.Calendly) load();
+    else {
+      panel.classList.add('fallback-mode');
+      window.open(calUrl, '_blank', 'noopener');
+    }
+  }, 50);
 
   panel.scrollIntoView({behavior:'smooth', block:'start'});
 }
